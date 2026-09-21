@@ -18,3 +18,12 @@ app.get("/animes", (req, res) => {
 app.listen(3000, () => {
   console.log("Serveur sur http://localhost:3000");
 });
+// GET /animes/2 -> renvoie l'anime dont l id vaut 2
+app.get("/animes/:id", (req, res) => {
+  const id = Number(req.params.id);            // ":id" arrive en texte -> on convertit
+  const anime = animes.find((p) => p.id === id);
+  if (!anime) {                              // rien trouve
+    return res.status(404).json({ erreur: "Anime introuvable" });
+  }
+  res.json(anime);
+});
